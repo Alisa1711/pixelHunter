@@ -1,5 +1,6 @@
+import {updateGame} from '../utils';
 export default {
-  template(level) {
+  getString(level) {
     return `<p class="game__task">${level.task}</p>
       <form class="game__content  game__content--triple">
       ${[...level.images].map((img, i) =>
@@ -8,5 +9,15 @@ export default {
     </div>`).join(``)}
       </form>`;
   },
-  answerClass: `.game__option`
+  setListener(levelElement, game, level) {
+    const answers = levelElement.querySelectorAll(`.game__option img`);
+    const onAnswerClick = ({target}) => {
+      const selectedPicture = level.images.find((image) => image.src === target.getAttribute(`src`));
+      const isCorrect = selectedPicture.type;
+      updateGame(game, isCorrect);
+    };
+    answers.forEach((answer) => {
+      answer.addEventListener(`click`, onAnswerClick);
+    });
+  }
 };

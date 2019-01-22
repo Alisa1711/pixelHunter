@@ -1,9 +1,20 @@
 import {
   GAME_STATE,
-  levels
+  settings
 } from './data/game-data';
 
+import stats from './stats';
+
 import getlevelElement from './templates/level';
+
+const Answer = function (isCorrect, time) {
+  this.isCorrect = isCorrect;
+  this.time = 15 || time;
+};
+
+const addAnswer = (game, isCorrect) => {
+  return game.answers.push(new Answer(isCorrect));
+};
 
 const mainElement = document.querySelector(`#main`);
 
@@ -18,36 +29,25 @@ const renderScreen = (screen) => {
   mainElement.appendChild(screen);
 };
 
-const changeLevel = (game) => Object.assign({}, game, {
-  level: game.level + 1
-});
-
-const getAnswersElements = (element, answerClass) => {
-  return Array.from(element.querySelectorAll(answerClass));
-};
-
-const isAllAnswers = (answers, options) => {
-  const checkedAnswers = answers.filter((answer) => answer.checked);
-  return checkedAnswers.length === options;
+const changeLevel = (game) => {
+  if (game.level === settings.MAX_LEVEL) {
+    gameOver();
+  }
+  return Object.assign({}, game, {
+    level: game.level + 1
+  });
 };
 
 const renderLevel = (game) => {
-  const currentLevel = levels[game.level];
-  const levelElement = getlevelElement(currentLevel);
-  const options = levelElement.querySelectorAll(`.game__option`);
-  const answerClass = currentLevel.type.answerClass;
-  const answersElements = getAnswersElements(levelElement, answerClass);
-
-  const onOptionClick = () => {
-    if (currentLevel.type === `triple` || isAllAnswers(answersElements, options.length)) {
-      game = changeLevel(game);
-      renderLevel(game);
-    }
-  };
-  answersElements.forEach((option) => {
-    option.addEventListener(`click`, onOptionClick);
-  });
+  const levelElement = getlevelElement(game);
   renderScreen(levelElement);
+};
+
+const updateGame = (game, isCorrect) => {
+  const newGame = changeLevel(game);
+  addAnswer(newGame, isCorrect);
+  renderLevel(newGame);
+  console.log(newGame);
 };
 
 const startGame = () => {
@@ -55,9 +55,16 @@ const startGame = () => {
   renderLevel(game);
 };
 
+const gameOver = () => {
+  const screen = getElementFromTemplate(stats);
+  renderScreen(screen);
+};
+
 export {
   getElementFromTemplate,
   renderScreen,
   renderLevel,
-  startGame
+  startGame,
+  updateGame,
+  addAnswer
 };

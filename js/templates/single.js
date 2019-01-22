@@ -1,6 +1,7 @@
+import {updateGame} from '../utils';
 export default {
-  template(level) {
-    return `<p class="game__task">${level.task}</p>
+  getString(level) {
+    return `<p class="game__tassk">${level.task}</p>
     <form class="game__content  game__content--wide">
     ${[...level.images].map((img, i) =>
     `<div class="game__option">
@@ -16,5 +17,14 @@ export default {
       </div>`).join(``)}
       </form>`;
   },
-  answerClass: `input[type=radio]`
+  setListener(levelElement, game, level) {
+    const answers = levelElement.querySelectorAll(`input[type=radio]`);
+    const onAnswerClick = ({target}) => {
+      const isCorrect = target.value === level.images[0].type;
+      updateGame(game, isCorrect);
+    };
+    answers.forEach((answer) => {
+      answer.addEventListener(`click`, onAnswerClick);
+    });
+  }
 };
