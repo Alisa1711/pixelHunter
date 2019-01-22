@@ -1,5 +1,5 @@
 import {getElementFromTemplate, renderScreen} from './utils';
-import renderGameOne from './game-1';
+import {startGame} from './utils';
 
 const rules = getElementFromTemplate(
     `<header class="header">
@@ -45,7 +45,7 @@ const renderRules = () => {
   };
 
   rulesInput.addEventListener(`keyup`, onInputKeyUp);
-  rulesButton.addEventListener(`click`, renderGameOne);
+  rulesButton.addEventListener(`click`, startGame);
 };
 
 export default renderRules;

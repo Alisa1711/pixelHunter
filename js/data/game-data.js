@@ -1,5 +1,9 @@
+import single from '../templates/single';
+import double from '../templates/double';
+import triple from '../templates/triple';
+
 const GAME_STATE = Object.freeze({
-  level: levels[0],
+  level: 0,
   lives: 3,
   answers: []
 });
@@ -13,20 +17,23 @@ const settings = {
 
 const levels = [
   {
-    type: `double`,
+    type: double,
+    task: `Угадайте для каждого изображения фото или рисунок?`,
     images: [
       {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
       {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
     ]
   },
   {
-    type: `double`,
+    type: single,
+    task: `Угадай, фото или рисунок?`,
     images: [
       {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
     ]
   },
   {
-    type: `triple`,
+    type: triple,
+    task: `Найдите рисунок среди изображений`,
     images: [
       {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
       {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
@@ -35,4 +42,4 @@ const levels = [
   }
 ];
 
-export {GAME_STATE, settings};
+export {GAME_STATE, settings, levels};
