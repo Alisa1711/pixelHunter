@@ -1,10 +1,3 @@
-import renderIntro from './intro';
-import renderGreeting from './greeting';
-
-renderIntro();
-
-document.addEventListener(`click`, (evt) => {
-  if (evt.target.closest(`.back`)) {
-    renderGreeting();
-  }
-});
+import introElement from './screens/intro';
+import {renderScreen} from './utils';
+renderScreen(introElement);

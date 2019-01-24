@@ -1,14 +1,13 @@
-const mainElement = document.querySelector(`#main`);
-
-const getElementFromTemplate = (template) => {
+const getElementFromTemplate = (template = ``) => {
   const element = document.createElement(`div`);
   element.innerHTML = template;
   return element;
 };
 
-const renderScreen = (screen) => {
+const renderScreen = (element) => {
+  const mainElement = document.querySelector(`#main`);
   mainElement.innerHTML = ``;
-  mainElement.appendChild(screen);
+  mainElement.appendChild(element);
 };
 
 export {
