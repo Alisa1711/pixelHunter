@@ -1,12 +1,9 @@
-export default `<ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>`;
+import {settings} from '../data/game-data';
+export default (game) => {
+  return `<ul class="stats">
+    ${game.answers.map((answer) => `<li class="stats__result stats__result--${answer.status}"></li>`).join(``)}
+    ${new Array(settings.MAX_LEVEL - game.answers.length)
+      .fill(`<li class="stats__result stats__result--unknown"></li>`)
+      .join(``)}
+    </ul>`;
+};

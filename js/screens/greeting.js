@@ -1,7 +1,10 @@
-import {getElementFromTemplate, renderScreen} from './utils';
-import renderRules from './rules';
+import {
+  getElementFromTemplate,
+  renderScreen
+} from '../utils';
+import rulesElement from './rules';
 
-const greeting = getElementFromTemplate(
+const greetingElement = getElementFromTemplate(
     `<section class="greeting central--blur">
       <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
       <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
@@ -23,11 +26,9 @@ const greeting = getElementFromTemplate(
       </button>
     </section>`
 );
+const buttonContinue = greetingElement.querySelector(`.greeting__continue`);
+buttonContinue.addEventListener(`click`, () => {
+  renderScreen(rulesElement);
+});
 
-const renderGreeting = () => {
-  renderScreen(greeting);
-  const greetingContinue = document.querySelector(`.greeting__continue`);
-  greetingContinue.addEventListener(`click`, renderRules);
-};
-
-export default renderGreeting;
+export default greetingElement;

@@ -1,7 +1,10 @@
-import {getElementFromTemplate, renderScreen} from './utils';
-import renderGreeting from './greeting';
+import {
+  getElementFromTemplate,
+  renderScreen
+} from '../utils';
+import greetingElement from './greeting';
 
-const intro = getElementFromTemplate(
+const introElement = getElementFromTemplate(
     `<section class="intro">
       <button class="intro__asterisk asterisk" type="button">
         <span class="visually-hidden">Продолжить</span>*</button>
@@ -9,10 +12,9 @@ const intro = getElementFromTemplate(
     </section>`
 );
 
-const renderIntro = () => {
-  renderScreen(intro);
-  const asterisk = document.querySelector(`.intro__asterisk`);
-  asterisk.addEventListener(`click`, renderGreeting);
-};
+const asterisk = introElement.querySelector(`.intro__asterisk`);
+asterisk.addEventListener(`click`, () => {
+  renderScreen(greetingElement);
+});
 
-export default renderIntro;
+export default introElement;

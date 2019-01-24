@@ -6,7 +6,7 @@ const GAME_STATE = Object.freeze({
 
 const levels = [
   {
-    type: `double`,
+    type: `photoOrPaint`,
     task: `Угадайте для каждого изображения фото или рисунок?`,
     images: [
       {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
@@ -14,14 +14,14 @@ const levels = [
     ]
   },
   {
-    type: `single`,
+    type: `photoOrPaint`,
     task: `Угадай, фото или рисунок?`,
     images: [
       {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
     ]
   },
   {
-    type: `triple`,
+    type: `findImage`,
     task: `Найдите рисунок среди изображений`,
     images: [
       {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: true},
@@ -30,7 +30,7 @@ const levels = [
     ]
   },
   {
-    type: `double`,
+    type: `photoOrPaint`,
     task: `Угадайте для каждого изображения фото или рисунок?`,
     images: [
       {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
@@ -43,7 +43,7 @@ const settings = {
   TIME_MAX: 30,
   TIME_SLOW: 20,
   TIME_FAST: 10,
-  MAX_LEVEL: levels.length - 1
+  MAX_LEVEL: levels.length
 };
 
 export {GAME_STATE, settings, levels};
