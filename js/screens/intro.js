@@ -9,9 +9,7 @@ export default () => {
     </section>`);
 
   const asterisk = elem.querySelector(`.intro__asterisk`);
-  asterisk.addEventListener(`click`, () => {
-    greeting();
-  });
+  asterisk.addEventListener(`click`, greeting);
 
   renderScreen(elem);
 };

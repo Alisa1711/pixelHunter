@@ -22,8 +22,6 @@ export default {
   },
   setListener(headerElement) {
     const buttonBackElement = headerElement.querySelector(`.back`);
-    buttonBackElement.addEventListener(`click`, () => {
-      greeting();
-    });
+    buttonBackElement.addEventListener(`click`, greeting);
   }
 };
