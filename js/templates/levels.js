@@ -1,4 +1,4 @@
-import {updateGame} from '../game';
+import {playGame} from '../main';
 export default {
   photoOrPaint: {
     getString(level) {
@@ -22,7 +22,7 @@ export default {
         </div>`).join(``)}
         </form>`;
     },
-    setListener(levelElement, game, level) {
+    setListener(levelElement, game) {
       const answers = Array.from(levelElement.querySelectorAll(`input[type=radio]`));
       const options = levelElement.querySelectorAll(`.game__option`);
 
@@ -30,8 +30,8 @@ export default {
         const checkedAnswers = answers.filter((answer) => answer.checked);
         if (checkedAnswers.length === options.length) {
           const isCorrect = checkedAnswers.every(
-              (answer, i) => answer.value === level.images[i].type);
-          updateGame(game, isCorrect);
+              (answer, i) => answer.value === game.levelObj.images[i].type);
+          playGame(game.update(isCorrect));
         }
       };
       answers.forEach((answer) => {
@@ -48,13 +48,13 @@ export default {
       </div>`).join(``)}
         </form>`;
     },
-    setListener(levelElement, game, level) {
+    setListener(levelElement, game) {
       const answers = levelElement.querySelectorAll(`.game__option img`);
       const onAnswerClick = ({target}) => {
-        const selectedPicture = level.images.find(
+        const selectedPicture = game.levelObj.images.find(
             (image) => image.src === target.getAttribute(`src`));
         const isCorrect = selectedPicture.type;
-        updateGame(game, isCorrect);
+        playGame(game.update(isCorrect));
       };
       answers.forEach((answer) => {
         answer.addEventListener(`click`, onAnswerClick);
