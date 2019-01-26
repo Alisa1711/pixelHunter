@@ -1,11 +1,10 @@
-import {
-  getElementFromTemplate
-} from '../utils';
-import {startGame} from '../game';
+import {getElementFromTemplate, renderScreen} from '../utils';
+import {startGame} from '../main';
 import header from '../templates/header';
 
-const rulesElement = getElementFromTemplate(
-    `${header.getString()}
+export default () => {
+  const elem = getElementFromTemplate(
+      `${header.getString()}
       <section class="rules">
         <h2 class="rules__title">Правила</h2>
         <ul class="rules__description">
@@ -21,21 +20,19 @@ const rulesElement = getElementFromTemplate(
           <input class="rules__input" type="text" placeholder="Ваше Имя">
           <button class="rules__button  continue" type="submit" disabled>Go!</button>
         </form>
-      </section>`
-);
+      </section>`);
+  const rulesInput = elem.querySelector(`.rules__input`);
+  const rulesButton = elem.querySelector(`.rules__button`);
+  const onInputKeyUp = () => {
+    if (rulesInput.value) {
+      rulesButton.removeAttribute(`disabled`);
+    } else {
+      rulesButton.setAttribute(`disabled`, true);
+    }
+  };
+  header.setListener(elem);
+  rulesInput.addEventListener(`keyup`, onInputKeyUp);
+  rulesButton.addEventListener(`click`, startGame);
 
-const rulesInput = rulesElement.querySelector(`.rules__input`);
-const rulesButton = rulesElement.querySelector(`.rules__button`);
-const onInputKeyUp = () => {
-  if (rulesInput.value) {
-    rulesButton.removeAttribute(`disabled`);
-  } else {
-    rulesButton.setAttribute(`disabled`, true);
-  }
+  renderScreen(elem);
 };
-
-header.setListener(rulesElement);
-rulesInput.addEventListener(`keyup`, onInputKeyUp);
-rulesButton.addEventListener(`click`, startGame);
-
-export default rulesElement;
