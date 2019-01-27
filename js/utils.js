@@ -10,7 +10,24 @@ const renderScreen = (element) => {
   mainElement.appendChild(element);
 };
 
+const resize = (frame, image) => {
+  const frameRatio = frame.width / frame.height;
+  const imageRatio = image.width / image.height;
+  if (frameRatio >= imageRatio) {
+    return {
+      width: Math.floor(frame.height * imageRatio),
+      height: frame.height,
+    };
+  } else {
+    return {
+      width: frame.width,
+      height: Math.floor(frame.width / imageRatio),
+    };
+  }
+};
+
 export {
   getElementFromTemplate,
-  renderScreen
+  renderScreen,
+  resize
 };
