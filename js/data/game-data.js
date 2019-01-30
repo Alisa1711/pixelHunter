@@ -23,23 +23,19 @@ class Answer {
 
 export default class Game {
   constructor(levels) {
+    this.maxLevels = levels.length;
+    this.maxLives = 3;
+    this.pointsPerOne = 100;
+    this.bonus = 50;
+    this.penalty = -50;
+
     this.level = 0;
-    this.lives = this.rules.lives;
+    this.lives = this.maxLives;
     this.answers = [];
     this._levels = levels;
 
     this.over = false;
     this.result = false;
-  }
-
-  get rules() {
-    return {
-      levels: 10,
-      lives: 3,
-      points: 100,
-      bonus: 50,
-      penalty: -50
-    };
   }
 
   update(isCorrect, time) {
@@ -66,7 +62,7 @@ export default class Game {
   }
 
   changeLevel() {
-    if (this.level === this.rules.levels - 1) {
+    if (this.level === this.maxLevels - 1) {
       this.over = true;
       this.result = true;
     } else {
@@ -74,41 +70,35 @@ export default class Game {
     }
   }
 
-  get stats() {
-    let total = 0;
-    let fast = 0;
-    let slow = 0;
-    this.answers.forEach((it) => {
-      if (it.status !== status.WRONG) {
-        total++;
-      }
-      if (it.status === status.FAST) {
-        fast++;
-      }
-      if (it.status === status.SLOW) {
-        slow++;
-      }
-    });
+  get fastBonus() {
+    const count = this.answers.filter((it) => it.status === status.FAST).length;
     return {
-      total,
-      fast,
-      slow
+      count,
+      total: count * this.bonus
     };
   }
 
-  get scores() {
-    const base = this.stats.total * this.rules.points;
-    const fast = this.stats.fast * this.rules.bonus;
-    const penalty = this.stats.slow * this.rules.penalty;
-    const lives = this.lives * this.rules.bonus;
-    const total = base + fast + penalty + lives;
-
+  get liveBonus() {
     return {
-      base,
-      fast,
-      penalty,
-      lives,
-      total
+      count: this.lives,
+      total: this.lives * this.bonus
     };
+  }
+
+  get slowPenalty() {
+    const count = this.answers.filter((it) => it.status === status.SLOW).length;
+    return {
+      count,
+      total: count * this.penalty
+    };
+  }
+
+  get points() {
+    const count = this.answers.filter((it) => it.status !== status.WRONG).length;
+    return count * this.pointsPerOne;
+  }
+
+  get totalScores() {
+    return this.points + this.fastBonus.total + this.liveBonus.total + this.slowPenalty.total;
   }
 }

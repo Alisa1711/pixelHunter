@@ -1,6 +1,6 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
-* Студент: [Николай Думчев](https://up.htmlacademy.ru/ecmascript/7/user/38064).
+* Студент: `Неизвестно`.
 * Наставник: `Неизвестно`.
 
 ---

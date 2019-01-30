@@ -13,7 +13,7 @@
 }
 
 .stats__result {
-  width: 32px;
+  min-width: 32px;
   height: 32px;
 
   margin: 5px;
@@ -39,6 +39,7 @@
   }
 
   &--alive {
+    display: inline-block;
     background: url("../img/heart__full.svg") no-repeat center;
   }
 }

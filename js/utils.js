@@ -1,13 +1,9 @@
-const getElementFromTemplate = (template = ``) => {
-  const element = document.createElement(`div`);
-  element.innerHTML = template;
-  return element;
-};
-
-const renderScreen = (element) => {
+const showScreen = (...elements) => {
   const mainElement = document.querySelector(`#main`);
   mainElement.innerHTML = ``;
-  mainElement.appendChild(element);
+  elements.forEach((it) => {
+    mainElement.appendChild(it);
+  });
 };
 
 const resize = (frame, image) => {
@@ -27,7 +23,6 @@ const resize = (frame, image) => {
 };
 
 export {
-  getElementFromTemplate,
-  renderScreen,
+  showScreen,
   resize
 };
