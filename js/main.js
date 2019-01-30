@@ -1,17 +1,18 @@
-import Game from './data/game';
-import levels from './data/levels';
-import intro from './screens/intro';
-import result from './screens/result';
-import renderLevel from './screens/game-screen';
+import Game from './data/game-data';
+import levels from './data/levels-data';
+import {showIntro, showResults} from './screens/non-game-screens';
+import showLevel from './screens/level-screen';
 
-intro();
+showIntro();
 
 const startGame = () => {
   const game = new Game(levels);
   playGame(game);
 };
 
-const playGame = (game) => game.over ? result(game) : renderLevel(game);
+const playGame = (game) => {
+  return game.over ? showResults(game) : showLevel(game);
+};
 
 export {
   startGame,
